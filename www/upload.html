@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html oncontextmenu="return false">
+    <head>
+        <title>Upload soundboard</title>
+	<link rel="icon" type="image/x-icon" href="css/icon.png"/>
+        <script src="/siofu/client.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div class="content">
+            <input type="file" id="upload_input" hidden/>
+            <div id="file_drop" dropzone="copy" title="drop files for upload">Lâcher le fichier .mp3 dans la zone blanche</div>
+        </div>
+        
+
+    </body>
+
+    <script type="text/javascript">
+        var socket = io.connect();
+        var siofu = new SocketIOFileUpload(socket);
+
+        siofu.listenOnInput(document.getElementById("upload_input"));
+        siofu.listenOnDrop(document.getElementById("file_drop"));
+
+        siofu.addEventListener("progress", function(event){
+            var percent = event.bytesLoaded / event.file.size * 100;
+            console.log("File is", percent.toFixed(2), "percent loaded");
+        });
+
+        siofu.addEventListener("complete", function(event){
+            if(event.success) {
+                window.location = window.location.origin
+            } else {
+		alert("Echec de l'envoi")
+	    }
+        });
+    </script>
+</html>

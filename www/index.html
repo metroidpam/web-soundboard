@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html oncontextmenu="return false">
+    <head>
+        <title>Soundboard</title>
+	<link rel="icon" type="image/x-icon" href="css/icon.png"/>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+	<link rel="stylesheet" href="css/popupmodal.css" />
+        <link rel="stylesheet" href="css/contextual.css">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+
+    <body>
+        <div id="app" class="content">
+	    <div class="topright">
+		<input style="float:left" id="volume" v-model="volume" type="range" min="0.05" max="1" step="0.05" value="0.5" v-on:change="volumeChange()"/>
+		<div class="stop" v-on:click="stop()"></div>
+	    </div>
+            <button v-for="item in sounds" v-on:click="play(item.path)" @contextmenu.prevent.stop="handleClick($event, item)">
+                {{item.name}}
+            </button>
+            <button onclick="location.href = '/upload.html';" style="background: grey;">Envoyer un son</button>
+        </div>
+    </body>
+
+    <script src="scripts/contextual.js"></script>
+    <script src="scripts/popupmodal-min.js">></script>
+    <script src="scripts/main.js"></script>
+</html>
