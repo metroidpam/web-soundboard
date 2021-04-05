@@ -11,3 +11,13 @@ Prochaine mise à jour :
 - [ ] gestion de droits
   
 - [ ] ... à venir
+
+Technologies utilisées :
+
+- socket.io
+  
+- express
+  
+- lowdb
+  
+- socketio-file-upload
